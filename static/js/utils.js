@@ -16,9 +16,7 @@ function voiceCall(customId = false, con = false) {
         if (customId) call = peer.call(customId, audioStream, peerOptions)
         else call = peer.call(id, audioStream, peerOptions)
     } else {
-        console.log("try ask" + customId)
         if (con) {
-            console.log("sent ask")
             con.send("ASK_CALL")
             tried++
         }

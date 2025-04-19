@@ -59,6 +59,17 @@ editor.on("keyboardActivity", (ev) => {
     }
 })
 
+editor.on("paste", () => {
+    setTimeout(() => {
+        for (let con of dataCons) {
+            if (con.id == peer.id) continue
+            con.send({
+                file: editor.getValue()
+            })
+        }
+    }, 0)
+})
+
 // Download code
 function exportCode() {
     // Find proper extension for file
