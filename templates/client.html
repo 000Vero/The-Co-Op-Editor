@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Co-Op Editor</title>
+    <link rel="icon" type="image/svg" href="/svg/people-fill.svg">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.40.0/ace.min.js" integrity="sha512-ltU111DxCFsqGT1FvKWwInwpg7r3cKcyqWSvN92Lo1NM3Q4Zskli4GnV2htQHF9u4o6NATHgNUDFyvqrxKdPzg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js" integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="bar">
+        <button onclick="exportCode()" class="button is-success">
+            Download code
+            <i class="bi bi-download"></i>
+        </button>
+        <button onclick="document.getElementById('picker').click()" class="button is-link">
+            Upload file
+            <i class="bi bi-upload"></i>
+        </button>
+        <button onclick="allowAudio()" id="allow-audio" class="button is-warning">
+            Enable audio
+            <i class="bi bi-volume-up-fill"></i>
+        </button>
+        <div class="select">
+            <select id="lang">
+              <option value="text/x-c++src">C++</option>
+              <option value="text/x-csrc">C</option>
+              <option value="text/x-java">Java</option>
+              <option value="text/x-python">Python</option>
+              <option value="text/html">HTML</option>
+              <option value="text/css">CSS</option>
+              <option value="application/x-javascript">JavaScript</option>
+            </select>
+        </div>
+        <i class="bi bi-mic-mute-fill" id="mic"></i>
+        <input type="file" id="picker" accept=".cpp,.c,.py,.js,.java,.css,.html"/>
+    </div>
+    <div id="editor"></div>
+    <script type="text/javascript" src="/js/io-client.js"></script>
+    <script type="text/javascript" src="/js/utils.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

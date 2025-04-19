@@ -1,0 +1,12 @@
+
+{
+  "name": "the-coop-editor",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "peer": "^1.0.2"
+  }
+}
