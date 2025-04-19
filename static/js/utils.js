@@ -5,6 +5,7 @@ var tried = 0
 var audioStream = 0
 var audioTracks = []
 var calls = []
+var joinSound = new Audio("/audio/join.wav")
 
 function voiceCall(customId = false, con = false) {
     call = null
@@ -28,6 +29,7 @@ function voiceCall(customId = false, con = false) {
         let audio = new Audio()
         audio.srcObject = stream
         audio.play().then(() => {
+            joinSound.play()
             let el = document.getElementById("allow-audio")
             if (el) {
                 el.style.display = "none"
@@ -84,6 +86,7 @@ peer.on("call", function (mediaConnection) {
         let audio = new Audio()
         audio.srcObject = stream
         audio.play().then(() => {
+            joinSound.play()
             let el = document.getElementById("allow-audio")
             if (el) {
                 el.style.display = "none"
