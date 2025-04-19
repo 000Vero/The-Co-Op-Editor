@@ -41,11 +41,13 @@ peer.on("open", function () {
     if (data == "ASK_CALL") {
       voiceCall(dataCon.peer)
     }
-    
+
     for (let peerCon of data.peers) {
       if (peerCon == peer.id) continue
-      voiceCall(peerCon)
       let dataCon = peer.connect(peerCon, peerOptions)
+      dataCon.on("open", () => {
+        voiceCall(peerCon, dataCon)
+      })
       dataCons.push(dataCon)
     }
   })
@@ -55,6 +57,10 @@ peer.on("connection", function (dataCon) {
   console.log("[Client] Got new data connection")
   dataCons.push(dataCon)
   dataCon.on("data", function(data) {
+    if (data == "ASK_CALL") {
+      voiceCall(dataCon.peer)
+      return
+    }
     updateFile(data)
   })
 })

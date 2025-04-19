@@ -7,6 +7,8 @@ var audioTracks = []
 var calls = []
 var joinSound = new Audio("/audio/join.wav")
 
+const allowAudioElement = document.getElementById("allow-audio")
+
 function voiceCall(customId = false, con = false) {
     call = null
 
@@ -14,7 +16,9 @@ function voiceCall(customId = false, con = false) {
         if (customId) call = peer.call(customId, audioStream, peerOptions)
         else call = peer.call(id, audioStream, peerOptions)
     } else {
+        console.log("try ask" + customId)
         if (con) {
+            console.log("sent ask")
             con.send("ASK_CALL")
             tried++
         }
@@ -24,15 +28,19 @@ function voiceCall(customId = false, con = false) {
 
     calls.push(call)
 
+    if (allowAudioElement) {
+        if (allowAudioElement.style.display == "none") joinSound.play()
+    } else {
+        joinSound.play()
+    }
+
     // On possible answer
     call.on("stream", (stream) => {
         let audio = new Audio()
         audio.srcObject = stream
         audio.play().then(() => {
-            joinSound.play()
-            let el = document.getElementById("allow-audio")
-            if (el) {
-                el.style.display = "none"
+            if (allowAudioElement) {
+                allowAudioElement.style.display = "none"
             }
         }, () => {
             audioTracks.push(audio)
@@ -80,16 +88,20 @@ peer.on("call", function (mediaConnection) {
     calls.push(mediaConnection)
     console.log("[IO] Call answered")
 
+    if (allowAudioElement) {
+        if (allowAudioElement.style.display == "none") joinSound.play()
+    } else {
+        joinSound.play()
+    }
+
     mediaConnection.on("stream", function (stream) {
         console.log("[IO] Got caller's stream")
         
         let audio = new Audio()
         audio.srcObject = stream
         audio.play().then(() => {
-            joinSound.play()
-            let el = document.getElementById("allow-audio")
-            if (el) {
-                el.style.display = "none"
+            if (allowAudioElement) {
+                allowAudioElement.style.display = "none"
             }
         }, () => {
             audioTracks.push(audio)
