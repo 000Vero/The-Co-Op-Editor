@@ -4,16 +4,30 @@ var dataCons = []
 var dataPeers = []
 
 // Setup PeerJS
+/*
 const peerOptions = {
   host: "/",
   port: 443,
   path: "/peerjs",
   secure: true
 }
+*/
+
+const config = {
+  config: {
+    iceServers: [
+      {
+        urls: "turn:coturn.psqsoft.org:3478",
+        username: "globalUser",
+        credential: "Wnv5G8osVOhRU37K"
+      }
+    ]
+  }
+}
 
 var peer
 
-peer = new Peer(peerOptions)
+peer = new Peer(undefined, config)
 
 // Get peer id
 peer.on("open", function (id) {
