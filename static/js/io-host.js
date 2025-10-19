@@ -4,14 +4,14 @@ var dataCons = []
 var dataPeers = []
 
 // Setup PeerJS
-/*
+
 const peerOptions = {
   host: "/",
   port: 443,
   path: "/peerjs",
   secure: true
 }
-*/
+
 
 const config = {
   config: {

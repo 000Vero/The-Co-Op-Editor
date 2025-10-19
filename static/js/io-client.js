@@ -4,14 +4,14 @@ var dataCons = []
 var dataPeers = []
 
 // Setup PeerJS
-/*
+
 const peerOptions = {
   host: "/",
   port: 443,
   path: "/peerjs",
   secure: true
 }
-*/
+
 
 const config = {
   config: {
@@ -31,7 +31,7 @@ peer = new Peer(undefined, config)
 
 peer.on("open", function () {
 
-  let dataCon = peer.connect(id, peerOptions)
+  let dataCon = peer.connect(id, undefined)
   let dead = setTimeout(() => {
     // Connection failed
     window.location = "/"
@@ -58,7 +58,7 @@ peer.on("open", function () {
 
     for (let peerCon of data.peers) {
       if (peerCon == peer.id) continue
-      let dataCon = peer.connect(peerCon, peerOptions)
+      let dataCon = peer.connect(peerCon, undefined)
       dataCon.on("open", () => {
         voiceCall(peerCon, dataCon)
       })
